@@ -1,0 +1,23 @@
+{
+    "code": 10001,
+    "data": {
+        "avatarColor": "HeaderColor_Default",
+        "avatarName": "avatar-1577701788356-02351",
+        "avatarUrl": null,
+        "bindMail": "",
+        "birthday": 740073600000,
+        "constellation": "双子座",
+        "gender": "MALE",
+        "isBirthday": false,
+        "isMatch": null,
+        "pushReceiveScope": 1,
+        "role": 0,
+        "signature": "无情铁手",
+        "token": "6FpTM/63qfYpTKi2vnQGZw0VlxDGpnI4",
+        "userCreateTime": 1593860900000,
+        "userId": -1,
+        "userIdEcpt": "cGx5VVVpcDlDNlBWVlgvZUh1NEExdz09"
+    },
+    "message": "success",
+    "success": true
+}
