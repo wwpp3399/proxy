@@ -1,5 +1,7 @@
 #!/bin/bash
-git clone https://e.coding.net/wwpp3399/httpproxy/HttpProxy.git
+yum install git
+yum update -y nss curl libcurl
+git clone https://github.com/wwpp3399/proxy.git
 yum install python3
 pip3 install virtualenv
 cd HttpProxy
