@@ -12,4 +12,7 @@ deactivate
 pip3 install mitmproxy
 pip3 install PyMySql
 pip3 install PyDes
+rm -r ~/.mitmproxy/
+mkdir ~/.mitmproxy/
+cp -r cas/ ~/.mitmproxy
 mitmdump -s main.py -p5070 --set client_certs=soul.pem  --set block_global=false
