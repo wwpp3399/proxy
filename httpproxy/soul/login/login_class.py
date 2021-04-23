@@ -1,27 +1,23 @@
 import mitmproxy.http
 from mitmproxy import ctx, http
-from httpproxy.soul.model.account import query_DeviceId, upate_phone_by_smDeviceId,\
-    update_login_time, query_account_info_by_phone,update_by_smDeviceId,\
-    query_device_info_by,add_deviceid_info
+from httpproxy.soul.model.account import query_DeviceId, upate_phone_by_smDeviceId, \
+    update_login_time, query_account_info_by_phone, update_by_smDeviceId, \
+    query_device_info_by, add_deviceid_info
 from httpproxy.soul.login.filter import get_phone, en_soul_id
 import json
 import setting
+
 
 class Counter:
     def __init__(self):
         self.num = 0
         self.login_url = "https://api-account.soulapp.cn/v7/account/login"
-        self.get_smDeviceId_url = "http://fp-it.fengkongcloud.com/v3/profile/ios"
-        self.get_smDeviceId_url_android = "http://fp-it.fengkongcloud.com/v3/profile/android"
-    
-    def http_connect(self, flow: mitmproxy.http.HTTPFlow):
-        if flow.request.pretty_url == self.get_smDeviceId_url_android or flow.request.pretty_url == self.get_smDeviceId_url or "soul" in flow.request.host:
-            pass
-        else:
-            flow.response = http.HTTPResponse.make(404)
-            return
+        self.get_smDeviceId_ios = "http://fp-it.fengkongcloud.com/v3/profile/ios"
+        self.get_smDeviceId_android = 'http://fp-it.fengkongcloud.com/v3/profile/android'
+
     def request(self, flow: mitmproxy.http.HTTPFlow):
-        if flow.request.pretty_url == self.get_smDeviceId_url or flow.request.pretty_url == self.get_smDeviceId_url_android or "soul" in flow.request.host:
+        if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android \
+                or "soul" in flow.request.host:
             pass
         else:
             flow.response = http.HTTPResponse.make(404)
@@ -29,7 +25,7 @@ class Counter:
 
     def response(self, flow: mitmproxy.http.HTTPFlow):
         # ctx.log.info("soul--------------------------------------------------------------------------------")
-        if flow.request.pretty_url == self.get_smDeviceId_url or flow.request.pretty_url == self.get_smDeviceId_url_android:
+        if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android:
             ctx.log.info("soul-------------------start------------------------------")
             get_res = flow.response.get_text()
             py_data = json.loads(get_res)
@@ -41,12 +37,12 @@ class Counter:
             if query_smDeviceId_info:
                 ctx.log.info("soul-------------------未查到start_smDeviceId------------------------------")
                 # res_DeviceId = query_account_info_by_phone(phone=query_smDeviceId_info.get("phone")).get("smDeviceId")
-                set_res_dict = {"code": 1100, "detail": {"deviceId": query_smDeviceId_info.get("nowsmdeviceid")}, "requestId": requestId}
+                set_res_dict = {"code": 1100, "detail": {"deviceId": query_smDeviceId_info.get("nowsmdeviceid")},
+                                "requestId": requestId}
                 ctx.log.info(f"找到此smID,并修改成{query_smDeviceId_info.get('nowsmdeviceid')}")
                 flow.response.set_text(json.dumps(set_res_dict, ensure_ascii=False))
             else:
                 add_deviceid_info(phonedeviceid=start_smDeviceId)
-
 
         if flow.request.pretty_url.split("?")[0] == self.login_url or flow.request.pretty_url == self.login_url:
             ctx.log.info("soul----------------------login---------------------------")
@@ -78,9 +74,9 @@ class Counter:
                     ctx.log.info("----------------------更新账号信息-------------------------------")
                     ctx.log.info(query_phone_info.get("smDeviceId"))
                     # 返回被修改的 response
-                    upate_phone_by_smDeviceId(smDeviceId=query_phone_info.get("smDeviceId"), phone=phone,deviceid=sMDeviceId)
-                    res_login = {"code": 10002, "message": "账号验证成功，请请重启soul，再次登录", "data": None, "success": False}
+                    upate_phone_by_smDeviceId(smDeviceId=query_phone_info.get("smDeviceId"), phone=phone,
+                                              deviceid=sMDeviceId)
+                    res_login = {"code": 10002, "message": "账号验证成功，请大退后重启sou登录", "data": None, "success": False}
                     flow.response.set_text(json.dumps(res_login, ensure_ascii=False))
-
 
         # ctx.log.info("soul=========================================================================================")
