@@ -8,4 +8,4 @@ class LoggerCls:
 
     def request(self, flow: mitmproxy.http.HTTPFlow):
         self.num = self.num + 1
-        ctx.log.info("We've seen %d flows" % self.num)
+        # ctx.log.info("We've seen %d flows" % self.num)

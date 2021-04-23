@@ -4,13 +4,8 @@ import base64
 import setting
 import time
 
-def get_phone(data: str):
-    data_list = data.split("&")
-    phone = ""
-    for i in data_list:
-        if i.split("=")[0] == "phone":
-            phone = i.split("=")[1]
-            break
+
+def get_phone(phone: str):
     b64_phone = base64.b64decode(phone.encode())
     # key_str = "789!@#xswEDCzxcv"
     py_des = des(key="789!@#xs", mode=ECB, padmode=PAD_PKCS5)
@@ -36,9 +31,9 @@ def de_soul_id(en_soul_id: str):
 
 # def get_ip_port_time():
 #     res = requests.get(url=setting.Config.PROXY_URL).text
-#     return res+f":{int(time.time())}"
-    # list_res = res.split(":")
-    # return list_res[0], list_res[1]
+#     return res + f":{int(time.time())}"
+#     # list_res = res.split(":")
+#     # return list_res[0], list_res[1]
 
 
 def update_login_text(login_text: str):
