@@ -4,7 +4,7 @@ yum update -y nss curl libcurl
 git clone https://github.com/wwpp3399/proxy.git
 yum install python3
 pip3 install virtualenv
-cd HttpProxy
+cd proxy
 virtualenv env
 source env/bin/activate
 pip3 install -r requirements.txt
