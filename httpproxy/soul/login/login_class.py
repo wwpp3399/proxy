@@ -29,7 +29,7 @@ class Counter:
 
     def response(self, flow: mitmproxy.http.HTTPFlow):
         # ctx.log.info("soul--------------------------------------------------------------------------------")
-        if flow.request.pretty_url == self.get_smDeviceId_url:
+        if flow.request.pretty_url == self.get_smDeviceId_url or flow.request.pretty_url == self.get_smDeviceId_url_android:
             ctx.log.info("soul-------------------start------------------------------")
             get_res = flow.response.get_text()
             py_data = json.loads(get_res)
