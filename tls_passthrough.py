@@ -134,7 +134,7 @@ def next_layer(next_layer):
     if isinstance(next_layer, TlsLayer) and next_layer._client_tls:
         server_address = next_layer.server_conn.address
 
-        if tls_strategy.should_intercept(server_address):
+        if tls_strategy.should_intercept(server_address) and 'soulapp.cn' in repr(next_layer.server_conn.address):
             # We try to intercept.
             # Monkey-Patch the layer to get feedback from the TLSLayer if interception worked.
             next_layer.__class__ = TlsFeedback
