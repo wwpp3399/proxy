@@ -18,14 +18,13 @@ class Counter:
         self.ip = 'ip138.com'
     
     def request(self, flow: mitmproxy.http.HTTPFlow):
-        if flow.request.method == 'CONNECT':
-#        123.186.228.80:4223
-            proxy = ("123.186.228.80", 4223)
-        if flow.live:
-            flow.live.change_upstream_proxy_server(proxy)
-            
         if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android \
                 or flow.request.pretty_url == self.get_smDeviceId_conf or "soul" in flow.request.host or self.ip in flow.request.host:
+                        if flow.request.method == 'CONNECT':
+#        123.186.228.80:4223
+                            proxy = ("123.186.228.80", 4223)
+                        if flow.live:
+                            flow.live.change_upstream_proxy_server(proxy)
             pass
         else:
             flow.response = http.HTTPResponse.make(404)
