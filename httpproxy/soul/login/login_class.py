@@ -14,10 +14,11 @@ class Counter:
         self.login_url = "https://api-account.soulapp.cn/v7/account/login"
         self.get_smDeviceId_ios = "http://fp-it.fengkongcloud.com/v3/profile/ios"
         self.get_smDeviceId_android = 'http://fp-it.fengkongcloud.com/v3/profile/android'
+        self.get_smDeviceId_config = 'fengkongcloud.com/v3/cloudconf'
 
     def request(self, flow: mitmproxy.http.HTTPFlow):
         if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android \
-                or "soul" in flow.request.host:
+                or "soul" in flow.request.host or self.get_smDeviceId_config in flow.request.host:
             pass
         else:
             flow.response = http.HTTPResponse.make(404)
