@@ -8,9 +8,11 @@ def query_account_info_by_phone(phone: str):
         query_sql = f"select * from account where phone='{phone}'"
         db.cursor.execute(query_sql)
         data_info = db.cursor.fetchone()
+        # print("数据库查取手机号注册信息----获得token成功------------------")
         return data_info
     except Exception as e:
         print(e)
+        # print("数据库查取手机号注册信息----获得token失败------------------")
         db.pysql_db.rollback()
         return False
 
@@ -27,7 +29,7 @@ def query_account_info_by_smid(smid: str):
         data_info = db.cursor.fetchone()
         return data_info
     except Exception as e:
-        print(e)
+        # print(e)
         db.pysql_db.rollback()
         return False
 
@@ -42,7 +44,7 @@ def query_account_info(phone: str, smdeviceid: str):
         query_sql = f"select * from account where phone='{phone}' and smDeviceId='{smdeviceid}'"
         db.cursor.execute(query_sql)
         data_info = db.cursor.fetchone()
-        print("oooooooooooooooooooooooooooooooooooooooooooooooooo")
+        # print("oooooooooooooooooooooooooooooooooooooooooooooooooo")
         return data_info
     except Exception as e:
         print(e)
@@ -57,28 +59,30 @@ def update_login_time(phone: str):
     db = MyDb()
     try:
 
-        update_sql = f"UPDATE account SET ltlgDate={int(time.time())} " \
-                     f"WHERE phone='{phone}' and ltlgDate IS NULL"
+        update_sql = f"UPDATE account SET ltlgDate={int(time.time())} WHERE phone='{phone}' and ltlgDate IS NULL"
         db.cursor.execute(update_sql)
         db.pysql_db.commit()
+        # print("更新成功")
         return True
     except Exception as e:
+        # print("更新失败")
         db.pysql_db.rollback()
         return False
     finally:
         db.cursor.close()
         db.pysql_db.close()
 
-
-def query_DeviceId(phoneDeviceId: str):
+def query_DeviceId_bool(phoneDeviceId: str):
     db = MyDb()
     try:
-        query_sql = f"select * from deviceidtable where phonedeviceid='{phoneDeviceId}' and nowsmdeviceid is not null"
+        query_sql = f"select * from deviceidtable where phonedeviceid='{phoneDeviceId}'"
         db.cursor.execute(query_sql)
         data_info = db.cursor.fetchone()
+        # print("数据库查到start_smDeviceId----成功------------------")
         return data_info
     except Exception as e:
         db.pysql_db.rollback()
+        # print("数据库查到start_smDeviceId----失败------------------")
         return False
     finally:
         db.cursor.close()
@@ -88,14 +92,16 @@ def query_DeviceId(phoneDeviceId: str):
 def upate_phone_by_smDeviceId(smDeviceId: str, phone: str, deviceid):
     db = MyDb()
     try:
-        print("更新--------+++++----------")
+        print("更新--------device表字段信息+++----------")
         update_sql = f"update deviceidtable set phone='{phone}',nowsmdeviceid='{smDeviceId}' where phonedeviceid='{deviceid}'"
         db.cursor.execute(update_sql)
         db.pysql_db.commit()
+        # print("更新账号信息成功----------------------")
         return True
 
     except Exception as e:
         print(e)
+        # print("更新账号信息---失败----------------------")
         db.pysql_db.rollback()
         return False
     finally:
@@ -103,16 +109,16 @@ def upate_phone_by_smDeviceId(smDeviceId: str, phone: str, deviceid):
         db.pysql_db.close()
 
 
-def update_by_smDeviceId(smDeviceId: str):
+def delete_device_by_smDeviceId(smDeviceId: str):
     db = MyDb()
     try:
-        query_sql = "update deviceidtable set phone=%s,nowsmdeviceid=%s where nowsmdeviceid=%s"
-        db.cursor.execute(query_sql, (None, None, smDeviceId))
+        query_sql = f"delete from deviceidtable where nowsmdeviceid='{smDeviceId}'"
+        db.cursor.execute(query_sql)
         db.pysql_db.commit()
-        print("更新当前设备为NULL成功")
+        # print("删除当前设备成功")
         return True
     except Exception as e:
-        print('更新失败')
+        # print('删除失败')
         db.pysql_db.rollback()
         return False
     finally:
@@ -120,14 +126,17 @@ def update_by_smDeviceId(smDeviceId: str):
         db.pysql_db.close()
 
 
-def query_device_info_by(nowsmdeviceid: str, phone: str):
+def query_now_sm_device_id_info(nowsmdeviceid:str):
     db = MyDb()
     try:
-        query_sql = f"select * from deviceidtable where phone='{phone}' and nowsmdeviceid='{nowsmdeviceid}'"
+        query_sql = f"select * from deviceidtable where nowsmdeviceid='{nowsmdeviceid}'"
         db.cursor.execute(query_sql)
         device_info = db.cursor.fetchone()
+        # print("数据库查取手机号跟注册sm_deviceId----成功------------------")
         return device_info
     except Exception as e:
+        print(e)
+        # print("数据库查取手机号跟注册sm_deviceId----失败------------------")
         db.pysql_db.rollback()
         return False
     finally:
@@ -141,9 +150,11 @@ def add_deviceid_info(phonedeviceid: str):
         insert_sql = f"insert into deviceidtable(phonedeviceid) values ('{phonedeviceid}')"
         db.cursor.execute(insert_sql)
         db.pysql_db.commit()
+        # print("插入start_smDeviceId成功")
         return True
     except Exception as e:
         db.pysql_db.rollback()
+        # print("插入start_smDeviceId失败")
         return False
     finally:
         db.cursor.close()
