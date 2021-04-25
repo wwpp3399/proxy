@@ -75,7 +75,7 @@ def update_login_time(phone: str):
 def query_DeviceId_bool(phoneDeviceId: str):
     db = MyDb()
     try:
-        query_sql = f"select * from deviceidtable where phonedeviceid='{phoneDeviceId}'"
+        query_sql = f"select * from deviceidtable where phonedeviceid='{phoneDeviceId}' and nowsmdeviceid is not null"
         db.cursor.execute(query_sql)
         data_info = db.cursor.fetchone()
         # print("数据库查到start_smDeviceId----成功------------------")

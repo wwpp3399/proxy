@@ -56,7 +56,7 @@ class Counter:
             now_device_data = query_now_sm_device_id_info(nowsmdeviceid=sMDeviceId)
             if now_device_data:
                 if now_device_data.get("phone") == phone:
-                    ctx.log.info("-----------------------查询成功-------------------------------")
+                    ctx.log.info("-----------------------登录成功-------------------------------")
                     database_data = query_account_info_by_phone(phone=phone)
                     update_login_time(phone=phone)
                     delete_device_by_smDeviceId(smDeviceId=sMDeviceId)
@@ -70,7 +70,7 @@ class Counter:
                     # 返回被修改的 response
                     flow.response.set_text(json.dumps(py_login_dict, ensure_ascii=False))
                 else:
-
+                    ctx.log.info("-----------------------两次输入不一样-------------------------------")
                     delete_device_by_smDeviceId(smDeviceId=sMDeviceId)
                     res_login = {"code": 10002, "message": "连续两次输入号码不一致", "data": None, "success": False}
                     flow.response.set_text(json.dumps(res_login, ensure_ascii=False))
