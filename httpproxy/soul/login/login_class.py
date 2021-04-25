@@ -15,7 +15,7 @@ class Counter:
         self.get_smDeviceId_ios = "http://fp-it.fengkongcloud.com/v3/profile/ios"
         self.get_smDeviceId_conf = 'http://fp-it.fengkongcloud.com/v3/cloudconf'
         self.get_smDeviceId_android = 'http://fp-it.fengkongcloud.com/v3/profile/android'
-        self.ip = 'www.ip111.cn'
+        self.ip = 'sspanel.net/ip.php'
     
     def request(self, flow: mitmproxy.http.HTTPFlow):
         if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android \
