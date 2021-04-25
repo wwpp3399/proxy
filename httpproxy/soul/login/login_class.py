@@ -18,7 +18,7 @@ class Counter:
 
     def request(self, flow: mitmproxy.http.HTTPFlow):
         if flow.request.pretty_url == self.get_smDeviceId_ios or flow.request.pretty_url == self.get_smDeviceId_android \
-                or "soul" in flow.request.host or self.get_smDeviceId_config in flow.request.host:
+                or "soul" in flow.request.host or self.get_smDeviceId_config in flow.request.pretty_url:
             pass
         else:
             flow.response = http.HTTPResponse.make(404)
