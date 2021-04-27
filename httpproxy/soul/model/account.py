@@ -1,5 +1,6 @@
 from httpproxy.soul.model.soul_account import MyDb
 import time
+# from httpproxy.soul.login.login_class import logger
 
 
 def query_account_info_by_phone(phone: str):
@@ -109,10 +110,10 @@ def upate_phone_by_smDeviceId(smDeviceId: str, phone: str, deviceid):
         db.pysql_db.close()
 
 
-def delete_device_by_smDeviceId(smDeviceId: str):
+def delete_device_by_SmDeviceId(sMDeviceId: str):
     db = MyDb()
     try:
-        query_sql = f"delete from deviceidtable where nowsmdeviceid='{smDeviceId}'"
+        query_sql = f"delete from deviceidtable where nowsmdeviceid='{sMDeviceId}'"
         db.cursor.execute(query_sql)
         db.pysql_db.commit()
         # print("删除当前设备成功")
