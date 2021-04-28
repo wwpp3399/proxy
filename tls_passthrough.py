@@ -131,7 +131,7 @@ def next_layer(next_layer):
     This hook does the actual magic - if the next layer is planned to be a TLS layer,
     we check if we want to enter pass-through mode instead.
     """
-    logger.info(f'--------------处理TLS的ADDRESS---------{repr(next_layer.server_conn.address)}')
+    #logger.info(f'--------------处理TLS的ADDRESS---------{repr(next_layer.server_conn.address)}')
     if isinstance(next_layer, TlsLayer) and next_layer._client_tls and 'soulapp.cn' in repr(next_layer.server_conn.address) and 'api' not in repr(next_layer.server_conn.address) :
         server_address = next_layer.server_conn.address
         
