@@ -29,7 +29,7 @@ import mitmproxy
 from mitmproxy import ctx
 from mitmproxy.exceptions import TlsProtocolException
 from mitmproxy.proxy.protocol import TlsLayer, RawTCPLayer
-
+from log.log_print import logger
 
 class InterceptionResult(Enum):
     success = True
@@ -131,7 +131,8 @@ def next_layer(next_layer):
     This hook does the actual magic - if the next layer is planned to be a TLS layer,
     we check if we want to enter pass-through mode instead.
     """
-    if isinstance(next_layer, TlsLayer) and next_layer._client_tls and 'soulapp.cn' in repr(next_layer.server_conn.address) and 'account/login' not in repr(next_layer.server_conn.address) :
+    logger.info(f'--------------处理TLS的ADDRESS---------{repr(next_layer.server_conn.address)}')
+    if isinstance(next_layer, TlsLayer) and next_layer._client_tls and 'soulapp.cn' in repr(next_layer.server_conn.address) and 'api' not in repr(next_layer.server_conn.address) :
         server_address = next_layer.server_conn.address
         
         if tls_strategy.should_intercept(server_address) :
