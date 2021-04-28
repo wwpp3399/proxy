@@ -1,3 +1,3 @@
 yum install psmisc
 killall supervisord
-supervisord -c /Supervisor/supervisord.conf
+supervisord -c /Supervisor/supervisord.conf 20210420143336a7136033c81a7ecf1e143fb25986df4a011bbcf2eb9b02b7
