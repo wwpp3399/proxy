@@ -18,7 +18,7 @@ class Counter:
 
         self.login_url = "account/login"
         self.refurbishToken_path = '/account/refurbishToken'
-        self.ipPath = 'http://sspanel.net/ip.php'
+        self.ipPath = 'ip'
 
     def request(self, flow: mitmproxy.http.HTTPFlow):
         if self.get_DeviceId_conf == flow.request.pretty_url or \
