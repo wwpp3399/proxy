@@ -16,8 +16,9 @@ if [[ $type == "" ]]; then
 	mitmdump -s main.py -s tls_passthrough.py --set client_certs=cer/soul.pem --set block_global=false -p5020 --mode upstream:https://$proxy/ & \
 	sleep 300
 	done
-elif [[ $type=='v' ]]; then
+elif [[ $type == 'v' ]]; then
 	#statements
+	echo "执行无代理模式"
 	while true
 	do
 	killall mitmdump
@@ -31,6 +32,7 @@ elif [[ $type=='v' ]]; then
 	sleep 300
 	done
 else
+	echo "执行指定代理模式"
 	while true
 	do
 	killall mitmdump
