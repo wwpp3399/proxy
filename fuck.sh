@@ -15,4 +15,4 @@ mkdir ~/.mitmproxy/
 firewall-cmd --zone=public --add-port=5080/tcp
 firewall-cmd --reload
 cp -r cas/ ~/.mitmproxy
-mitmproxy -s main.py -s tls_passthrough.py --set client_certs=cer/soul.pem --set block_global=false -p5080
+bash timer.sh
