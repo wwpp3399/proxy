@@ -14,7 +14,7 @@ mitmdump -s main.py -s tls_passthrough.py --set client_certs=cer/soul.pem --set 
 mitmdump -s main.py -s tls_passthrough.py --set client_certs=cer/soul.pem --set block_global=false -p5020 --mode upstream:https://$proxy/ & \
 sleep 300
 done
-elif [[ $type=='-v' ]]; then
+elif [[ $type=='v' ]]; then
 	#statements
 while true
 do
