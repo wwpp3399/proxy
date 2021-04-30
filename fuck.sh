@@ -15,4 +15,4 @@ mkdir ~/.mitmproxy/
 firewall-cmd --zone=public --add-port=5080/tcp
 firewall-cmd --reload
 cp -r cas/ ~/.mitmproxy
-bash timer.sh
+bash timer.sh -v
