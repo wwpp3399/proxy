@@ -1,5 +1,6 @@
 #!/bin/bash
 type=$1
+echo "参数是${type}"
 if [[ $type=="" ]]; then
 	proxy=$(curl http://47.116.12.2/getip?num=1&type=1&pro=&city=0&yys=0&port=11&time=2&ts=0&ys=0&cs=0&lb=4&sb=0&pb=4&mr=1&regions=&username=chukou01&spec=1)
 while true
