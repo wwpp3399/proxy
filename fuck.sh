@@ -12,7 +12,6 @@ pip3 install PyMySql
 pip3 install PyDes
 rm -r ~/.mitmproxy/
 mkdir ~/.mitmproxy/
-firewall-cmd --zone=public --add-port=5080/tcp
-firewall-cmd --reload
+systemctl stop firewalld.service 
 cp -r cas/ ~/.mitmproxy
 bash timer.sh v
