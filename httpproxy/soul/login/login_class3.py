@@ -17,7 +17,7 @@ class Counter:
         self.get_DeviceId_ios = "http://fp-it.fengkongcloud.com/v3/profile/ios"
         self.get_DeviceId_android = 'http://fp-it.fengkongcloud.com/v3/profile/android'
 
-        self.login_url = "https://api-account.soulapp.cn/v7/account/login"
+        self.login_url = "/account/login"
         self.refurbishToken_path = '/account/refurbishToken'
 
     def request(self, flow: mitmproxy.http.HTTPFlow):
@@ -51,7 +51,7 @@ class Counter:
             else:
                 logger.info(f"--------数据库查询deviceId失败-------插入此phone登入的---{start_smDeviceId}--到数据库----------")
                 add_deviceid_info(phonedeviceid=start_smDeviceId)
-        if self.login_url == flow.request.pretty_url.split("?")[0]:
+        if self.login_url in flow.request.pretty_url:
             logger.info(
                 "soul----------------------------------------------login----------------------------------------")
             en_phone = flow.request.urlencoded_form.get("phone")

@@ -14,4 +14,4 @@ class LoggerCls:
         # logger.info(flow.request.pretty_host)
         # logger.info(flow.request.path)
         # logger.info(flow.request.query)
-        # ctx.log.info("We've seen %d flows" % self.num)
+        ctx.log.info(f"----------------------------------{self.num}-----------------------------------------------------------")
